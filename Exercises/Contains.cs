@@ -31,7 +31,8 @@ namespace Exercises
             DateTime date, IEnumerable<DateTime> existingAppointmentDates)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return !existingAppointmentDates.Contains(date);
         }
 
         //Coding Exercise 2
@@ -55,7 +56,15 @@ namespace Exercises
         public static int CountFriendsOf(Friend friend, IEnumerable<Person> people)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            return people.Count(p => p.Friends.Contains(friend));
+
+            //var count = 0;
+            //foreach (Person person in people)
+            //{
+            //    if (person.Friends.Contains(friend))
+            //        count++;
+            //}
+            //return count;
         }
 
         //Refactoring challenge
@@ -64,7 +73,9 @@ namespace Exercises
             IEnumerable<string> words, IEnumerable<string> bannedWords)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return words
+                .Any(w => bannedWords.Contains(w));
         }
 
         //do not modify this method
