@@ -20,7 +20,11 @@ namespace Exercises
         public static int? LengthOfTheShortestWord(IEnumerable<string> words)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            if (words == null || words.Count() == 0) 
+                return null;
+            
+            return words.Min(w => w.Length);
         }
 
         //Coding Exercise 2
@@ -39,7 +43,13 @@ namespace Exercises
         public static int CountOfLargestNumbers(IEnumerable<int> numbers)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            if (numbers == null || numbers.Count() == 0)
+                return 0;
+
+            return numbers
+                .Count(n => numbers.Max() == n);
+
         }
 
         //Refactoring challenge
@@ -47,8 +57,12 @@ namespace Exercises
         public static int CountOfDogsOfTheOwnerWithMostDogs_Refactored(
             IEnumerable<Person> owners)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            //return owners
+            //    .Where(o => o == owners.OrderByDescending(o => o.Pets.Count(p => p.PetType == PetType.Dog)).First())
+            //    .Max(o => o.Pets.Count());
+
+            return owners
+                .Max(o => o.Pets.Count(p => p.PetType == PetType.Dog));
         }
 
         //do not modify this method
