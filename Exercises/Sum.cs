@@ -17,7 +17,9 @@ namespace Exercises
         public static int TotalLength(IEnumerable<string> words)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return !words.Any() ? 0 : words
+                .Sum(word => word.Length);
         }
 
         //Coding Exercise 2
@@ -39,7 +41,10 @@ namespace Exercises
             IEnumerable<IEnumerable<int>> collectionsOfNumbers)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return (collectionsOfNumbers == null || !collectionsOfNumbers.Any()) ? 0 :
+            collectionsOfNumbers
+                .Average(numbers => !numbers.Any() ? 0 : numbers.Sum());
         }
 
         //Refactoring challenge
@@ -48,7 +53,9 @@ namespace Exercises
             IEnumerable<Student> students)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return students is null ? false :
+                students.Any(s => s.Marks.Sum() > 100);
         }
 
         //do not modify this method
