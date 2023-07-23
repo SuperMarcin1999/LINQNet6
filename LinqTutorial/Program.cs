@@ -13,7 +13,7 @@ namespace LinqTutorial
             //All.Run();
             //Count.Run();
             //Contains.Run();
-            //OrderBy.Run();
+            OrderBy.Run();
             //MinMax.Run();
             //Average.Run();
             //Sum.Run();
