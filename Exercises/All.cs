@@ -32,7 +32,7 @@ namespace Exercises
         {
             //TODO your code goes here
 
-            return words.All(word => word.Count() == words.First().Length);
+            return words.All(word => word.Length == words.First().Length);
         }
 
         //do not modify this method
