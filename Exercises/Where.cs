@@ -30,7 +30,8 @@ namespace Exercises
             IEnumerable<Student> students)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            
+            return students.Where(s => (s.Marks.Any() ? s.Marks.Average() : 0) > 4.6) ;
         }
 
         //Coding Exercise 2
@@ -56,7 +57,11 @@ namespace Exercises
             IEnumerable<string> words)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return words.Where((word, index) =>
+            {
+                return word.StartsWith($"{++index}.");
+            });
         }
 
         //Refactoring challenge
@@ -65,7 +70,8 @@ namespace Exercises
             IEnumerable<Person> people)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return people.Where(person => person.Pets.Count(p => p.PetType == PetType.Fish) > 1);
         }
 
         //do not modify this method
