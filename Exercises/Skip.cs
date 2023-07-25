@@ -59,15 +59,13 @@ namespace Exercises
         {
             //TODO your code goes here
 
-            var x = words.Count(w => w == "START") != 1 ||
+            return  words.Count(w => w == "START") != 1 ||
                     words.Count(w => w == "END") != 1 ||
                     words.IndexOf("END") < words.IndexOf("START") 
                     ? new List<string>() : words
                 .SkipWhile(w => w != "START")
                 .Skip(1)
                 .TakeWhile(w => w != "END");
-
-            return x;
         }
 
         //Refactoring challenge
