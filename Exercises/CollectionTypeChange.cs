@@ -62,7 +62,7 @@ namespace Exercises
         {
             //TODO your code goes here
 
-            var x = students
+            return students
                 ?.ToDictionary(s =>
                 {
                     var studentData = $"{s.FirstName} " +
@@ -71,8 +71,6 @@ namespace Exercises
                     return studentData;
                 },
                 s => s.Marks.Any() ? s.Marks.Average() : 0);
-
-            return x;
         }
 
         //do not modify this method
