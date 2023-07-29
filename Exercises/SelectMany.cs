@@ -18,7 +18,20 @@ namespace Exercises
             HashSet<int> numbers)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            //var list = new List<string>();
+            //foreach (var number1 in numbers)
+            //{
+            //    foreach(var number2 in numbers)
+            //    {
+            //        list.Add($"{number1},{number2}");
+            //    }
+            //}
+
+            //return list;
+            var numbersClone = numbers;
+
+            return numbers
+                .SelectMany(_ => numbers, (a,b) => $"{a},{b}");
         }
 
         //Coding Exercise 2
@@ -54,7 +67,13 @@ namespace Exercises
             IEnumerable<Student> students)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return students
+                .SelectMany(marks => marks.Marks, (s, m) => new { s.Name, m })
+                .OrderByDescending(sm => sm.m)
+                .ThenBy(sm => sm.Name)
+                .Take(5)
+                .Select(sm => $"{sm.Name}: {sm.m}");
         }
 
         //Refactoring challenge
@@ -63,7 +82,10 @@ namespace Exercises
             IEnumerable<Point> starts, IEnumerable<Point> ends)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return starts
+                .SelectMany(_ => ends, (s, e) => new { s, e })
+                .ToDictionary(x => $"Start: ({x.s}), End: ({x.e})", x => SegmentLength(x.s, x.e));
         }
 
         //do not modify this method
