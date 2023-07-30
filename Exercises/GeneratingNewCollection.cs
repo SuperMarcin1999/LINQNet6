@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Exercises
@@ -29,7 +30,9 @@ namespace Exercises
             int initialYear, int yearsCount)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return Enumerable.Range(initialYear, yearsCount)
+                .ToDictionary(x => x, x => new DateTime(x, 12, 31).DayOfWeek.ToString());
         }
 
         //Coding Exercise 2
@@ -54,7 +57,9 @@ namespace Exercises
         public static string BuildTree(int levels)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return string.Join(Environment.NewLine, Enumerable.Range(1, levels)
+                .Select(level => string.Join("", Enumerable.Repeat("*",level))));
         }
 
         //Refactoring challenge
@@ -62,7 +67,18 @@ namespace Exercises
         public static IEnumerable<string> DoubleLetters_Refactored(int countOfLetters)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            const int CountOfLettersInEnglishAlphabet = 26;
+            var finalCountOfLetters = Math.Min(
+                countOfLetters,
+                CountOfLettersInEnglishAlphabet);
+
+            var allLetters = Enumerable
+                .Range('A', finalCountOfLetters)
+                .Select(i => (char)i);
+
+            return allLetters
+                .SelectMany(_ => allLetters, (a, b) => $"{a}{b}");
         }
 
         //do not modify this method
