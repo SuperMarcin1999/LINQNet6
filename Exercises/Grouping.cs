@@ -30,7 +30,21 @@ namespace Exercises
         public static char? GetTheMostFrequentCharacter(string text)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            //var x = text
+            //    .Select(c => new { c, n = text.Count(x => x == c) })
+            //    .ToDictionary(x => x.c, x => x.n)
+            //    .OrderByDescending(g => g.Value)
+            //    .Select(x => x.Key)
+            //    .First();
+
+            return string.IsNullOrWhiteSpace(text) ? null : 
+                text
+                .ToLower()
+                .GroupBy(c => c)
+                .OrderByDescending(c => c.Count())
+                .FirstOrDefault()
+                .Key;
         }
 
         //Coding Exercise 2
@@ -54,7 +68,13 @@ namespace Exercises
         public static PetType? FindTheHeaviestPetType(IEnumerable<Pet> pets)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return !pets.Any() ? null : 
+                pets
+                .GroupBy(p => p.PetType)
+                .OrderByDescending(g => g.Average(p => p.Weight))
+                .FirstOrDefault()
+                .Key;
         }
 
         //Refactoring challenge
@@ -62,7 +82,19 @@ namespace Exercises
         public static IEnumerable<string> CountPets_Refactored(string petsData)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            //return !petsData.Any() ? new string[0] :
+            //    petsData
+            //    .Split(",")
+            //    .ToDictionary(x => x)
+            //    .Select(x => $"{x.Key}:{x.Value}");
+
+            var x = !petsData.Any() ? new string[0] : petsData
+                .Split(",")
+                .GroupBy(x => x)
+                .Select(g => $"{g.Key}:{g.Count()}");
+
+            return x;
         }
 
         //do not modify this method
