@@ -25,7 +25,11 @@ namespace Exercises
             IEnumerable<string> words2)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return words1
+                .Select(x => x.ToLower())
+                .Intersect(words2.Select(x => x.ToLower()))
+                .Count();
         }
 
         //Coding Exercise 2
@@ -46,7 +50,16 @@ namespace Exercises
             IEnumerable<int> numbers2)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            //return numbers1
+            //    .Union(numbers2)
+            //    .Except(numbers1.Intersect(numbers2))
+            //    .OrderBy(x => x);
+
+            return numbers1
+                .Except(numbers2)
+                .Union(numbers2.Except(numbers1))
+                .OrderBy(x => x);
         }
 
         //Refactoring challenge
@@ -56,7 +69,14 @@ namespace Exercises
                 Route route1, Route route2)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            var shared = route1.RoutePoints.Intersect(route2.RoutePoints);
+            var unshared = route2.RoutePoints
+                .Except(route1.RoutePoints)
+                .Union(route1.RoutePoints.Except(route2.RoutePoints));
+
+            return shared.Select(r => $"Shared point {r.Name} at {r.Point}")
+                .Union(unshared.Select(r => $"Unshared point {r.Name} at {r.Point}"));
         }
 
         //do not modify this method
