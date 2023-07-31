@@ -42,7 +42,7 @@ namespace Exercises
                 text
                 .ToLower()
                 .GroupBy(c => c)
-                .OrderByDescending(c => c.Count())
+                .OrderByDescending(g => g.Count())
                 .FirstOrDefault()
                 .Key;
         }
@@ -83,18 +83,10 @@ namespace Exercises
         {
             //TODO your code goes here
 
-            //return !petsData.Any() ? new string[0] :
-            //    petsData
-            //    .Split(",")
-            //    .ToDictionary(x => x)
-            //    .Select(x => $"{x.Key}:{x.Value}");
-
-            var x = !petsData.Any() ? new string[0] : petsData
+            return !petsData.Any() ? new string[0] : petsData
                 .Split(",")
                 .GroupBy(x => x)
                 .Select(g => $"{g.Key}:{g.Count()}");
-
-            return x;
         }
 
         //do not modify this method
