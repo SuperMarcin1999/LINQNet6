@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 
 namespace Exercises
 {
@@ -39,8 +40,18 @@ namespace Exercises
              IEnumerable<House> houses)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return people
+                .GroupJoin(houses, p => p.Id, h => h.OwnerId, (p, h) => new { p.Name, Hourses = h.DefaultIfEmpty(), PersonId = p.Id })
+                .SelectMany(
+                        x => x.Hourses.DefaultIfEmpty(),
+                        (x, h) => h == null ? $"Person: (Id:{x.PersonId}), {x.Name} owns no house" : $"Person: (Id:{x.PersonId}), {x.Name} owns {h.Address}");
         }
+
+         //       "Person: (Id:1), John Smith owns no house",
+         //       "Person: (Id:2), Stephanie Green owns Hilltop Mansion, 234 Maple Road",
+         //       "Person: (Id:3), Martin Brown owns Beach Farm, 10 Seaside Street"
+
 
         //Coding Exercise 2
         /*
@@ -87,7 +98,18 @@ namespace Exercises
             IEnumerable<Order> orders)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return orders
+                .Join(customers, o => o.CustomerId, c => c.Id,
+                (o, c) => new { ConsumerId = c.Id, ItemId = o.ItemId, ConsumerName = c.Name, OrderCount = o.Count })
+                .Join(items, x => x.ItemId, i => i.Id, (x, i) =>
+                new
+                {
+                    ItemName = i.Name,
+                    ConsumerName = x.ConsumerName,
+                    OrderCount = x.OrderCount
+                })
+                .Select(x =>  $"Customer: {x.ConsumerName}, Item: {x.ItemName}, Count: {x.OrderCount}");
         }
 
         //Refactoring challenge
@@ -97,7 +119,14 @@ namespace Exercises
             IEnumerable<House> houses)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return houses
+                .Join(people, h => h.OwnerId, p => p.Id, (h, p) => new
+                {
+                    house = h,
+                    person = p
+                })
+                .ToDictionary(x => x.house, x => x.person);
         }
 
         //do not modify this method
