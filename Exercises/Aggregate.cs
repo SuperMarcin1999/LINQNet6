@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,11 @@ namespace Exercises
             IEnumerable<int> activityTimesInSeconds)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return TimeSpan
+                .FromSeconds(
+                    activityTimesInSeconds
+                    .Aggregate(((sum, a) => sum + a)));
         }
 
         //Coding Exercise 2
@@ -41,15 +46,40 @@ namespace Exercises
         public static string PrintAlphabet(int count)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            if (count < 1 || count > 26)
+                throw new ArgumentException();
+
+            return Enumerable.Range(1, count-1)
+                .Aggregate("a", (sum, x) => $"{sum},{(char)('a' + x)}");
         }
 
         //Refactoring challenge
         //TODO implement this method
         public static IEnumerable<int> Fibonacci_Refactored(int n)
         {
-            //TODO your code goes here
-            throw new NotImplementedException();
+            if (n < 1)
+            {
+                throw new ArgumentException(
+                    $"Can't generate Fibonacci sequence " +
+                    $"for {n} elements. N must be a " +
+                    $"positive number");
+            }
+
+            if (n == 1)
+            {
+                return new[] { 0 };
+            }
+
+            return Enumerable.Range(2, n - 2)
+                .Aggregate(new List<int>() {0, 1} as IEnumerable<int>
+                    , (sum, nextIndex) =>
+                    {
+                        return sum
+                            .Append(
+                                sum.ElementAt(nextIndex - 2) + 
+                                sum.ElementAt(nextIndex - 1));
+                    });
         }
 
         //do not modify this method
