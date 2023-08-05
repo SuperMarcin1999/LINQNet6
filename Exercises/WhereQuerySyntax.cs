@@ -25,7 +25,6 @@ namespace Exercises
            int year, IEnumerable<Person> people)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
         }
 
         //Coding Exercise 2
