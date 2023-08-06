@@ -34,7 +34,12 @@ namespace Exercises
             IEnumerable<Student> students)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return from student in students
+                from mark in student.Marks ?? Enumerable.Empty<int>()
+                where student.Name != null
+                orderby student.Name, mark
+                select $"{student.Name}: {mark}";
         }
 
         //Coding Exercise 2
@@ -64,7 +69,11 @@ namespace Exercises
                 IEnumerable<int> numbers2)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+            
+            return from num1 in numbers1
+                from num2 in numbers2
+                where num1 + num2 < 100
+                    select new Tuple<int, int>(num1, num2);
         }
 
         //Refactoring challenge
@@ -74,7 +83,11 @@ namespace Exercises
                 IEnumerable<int> numbers)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return from num1 in numbers.OrderBy(x => x)
+                   from num2 in GetDivisors(num1).OrderBy(x => x)
+                   select $"Number {num1} is " +
+                          $"divisible by {num2}";
         }
 
         //do not modify this method
