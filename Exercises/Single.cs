@@ -71,8 +71,10 @@ namespace Exercises
             IEnumerable<DateTime> dates, DayOfWeek dayOfWeek)
         {
             //TODO your code goes here
-            
-            return dates.SingleOrDefault(d => d.DayOfWeek == dayOfWeek);
+
+            return dates.Count(d => d.DayOfWeek == dayOfWeek) == 1
+                ? dates.Single(d => d.DayOfWeek == dayOfWeek)
+                : (DateTime?) null;
         }
 
         //do not modify this method
