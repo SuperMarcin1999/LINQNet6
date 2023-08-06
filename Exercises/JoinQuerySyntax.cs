@@ -41,7 +41,11 @@ namespace Exercises
            IEnumerable<HogwartsHouse> houses)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return from student in students
+                join house in houses on student.HouseId equals house.Id
+                orderby house.Name, student.Name
+                select $"{student.Name} from house {house.Name}";
         }
 
         //Coding Exercise 2
@@ -83,7 +87,12 @@ namespace Exercises
                 IEnumerable<HogwartsHouse> houses)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return from house in houses
+                join student in students on house.Id equals student.HouseId into joinedTable
+                from houseStudent in joinedTable.DefaultIfEmpty()
+                let studentInfo = joinedTable.Any() ? houseStudent.Name : "no students"
+                select $"House name: {house.Name}, student: {studentInfo}";
         }
 
         //Refactoring challenge
@@ -95,7 +104,14 @@ namespace Exercises
                 IEnumerable<HogwartsHouse> houses)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return from student in students
+                join house in houses on student.HouseId equals house.Id
+                from subjectId in student.SubjectsIds
+                join subject in subjects on subjectId equals subject.Id
+                select $"{student.Name} from house" +
+                       $" {house.Name} " +
+                       $"studies {subject.Name}";
         }
 
         //do not modify this method
