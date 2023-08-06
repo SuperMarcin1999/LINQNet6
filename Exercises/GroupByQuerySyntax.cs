@@ -21,7 +21,19 @@ namespace Exercises
         public static IEnumerable<string> GroupByFirstDigit(IEnumerable<int> numbers)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            var res1 = from number in numbers
+                group number by number.ToString().ToCharArray().ElementAt(0)
+                into g
+                select $"FirstDigit: {g.Key}, numbers: {string.Join(",", g.Select(x => x).ToList()) }";
+
+            var res2 = from number in numbers
+                group number by number.ToString()[0]
+                into g
+                let values = string.Join(",", g.Select(x => x))
+                select $"FirstDigit: {g.Key}, numbers: {values}";
+
+            return res2;
         }
 
         //Coding Exercise 2
@@ -49,7 +61,15 @@ namespace Exercises
             IEnumerable<DateTime> dates)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            return (from date in dates
+                    group date by date.DayOfWeek
+                    into g 
+                    select g
+                ).ToDictionary(
+                    g => g.Key,
+                    g => g.Select(x => x).Max());
+
         }
 
         //Refactoring challenge
@@ -58,7 +78,36 @@ namespace Exercises
             IEnumerable<House> houses)
         {
             //TODO your code goes here
-            throw new NotImplementedException();
+
+            var res1 = (from house in houses
+                    group house by house.OwnerId
+                    into g
+                    select g)
+                .ToDictionary(
+                    g => g.Key,
+                    g =>
+                    {
+                        var houses = g.Select(x => x).ToList();
+
+                        return houses.Count() > 1 ?
+                            $"Owner with ID {g.Key} " +
+                            $"owns houses: " +
+                            $"{string.Join(", ", houses)}"
+                                : string.Empty;
+                    })
+                .Where(x => x.Value != String.Empty)
+                .Select(x => x.Value).ToList();
+
+
+            var res2 = from house in houses
+                group house by house.OwnerId
+                into g
+                where g.Count() > 1
+                select $"Owner with ID {g.Key} " +
+                       $"owns houses: " +
+                       $"{string.Join(", ", g.Select(h => h))}";
+
+            return res2;
         }
 
         //do not modify this method
